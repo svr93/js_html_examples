@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+      "use strict";
+
+      function getSimpleNums(firstNum, lastNum) {
+        // it is assumed that numbers are more than 1 and integers
+
+        var tmpStr = "";
+
+        numCase:
+        for (var i = firstNum; i <= lastNum; ++i) {
+          for (var j = 2; j * j <= i; ++j) {
+            if (i % j == 0) continue numCase;
+          }
+          tmpStr += (i + "; ");
+        }
+
+        resText.innerHTML += tmpStr;
+      }
+    </script>
+  </head>
+  <body onload="getSimpleNums(2, 10)">
+    <div id="resText">Простые числа в указанном интервале: </div>
+  </body>
+</html>
