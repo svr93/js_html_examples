@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+      "use strict";
+
+      function getName() {
+        return "Sergey";
+      }
+
+      function showName() {
+        var age = 0;
+
+        switch(age = 21, getName() + "") {
+          case "Depchik":
+            alert("Good dog!");
+            break;
+          case "Sergey":
+            alert(age);
+            break;
+          default:
+            alert("Gurvic");
+        }
+      }
+    </script>
+  </head>
+  <body onload="showName()"></body>
+</html>
