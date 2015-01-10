@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+      "use strict";
+
+      function makeSinglyLinkedList(num) {
+        var list = {
+          value: 1,
+          next: null,
+        };
+
+        var tmp = list;
+
+        for (var i = 2; i <= num; ++i) {
+          tmp.next = {
+            value: i,
+            next: null,
+          };
+
+          tmp = tmp.next;
+        }
+
+        return list;
+      }
+
+      function printList(list) {
+        var tmp = list;
+        console.log("list content:");
+
+        while (tmp) {
+          console.log(tmp.value);
+          tmp = tmp.next;
+        }
+      }
+      
+      var printReverseListRec = function fn(list) {
+        if (list.next) {
+          fn(list.next);
+        } else {
+          console.log("list content (back order, using recursion):");
+        }
+
+        console.log(list.value);   
+      }
+
+      function printReverseListSimply(list) {
+        var tmp = list;
+        var arr = [];
+
+        while (tmp) {
+          arr.push(tmp.value);
+          tmp = tmp.next;
+        }
+
+        console.log("list content (back order, without recursion):");
+
+        for (var i = arr.length - 1; i >= 0; --i) {
+          console.log(arr[i]);
+        }
+      }
+
+      var list = makeSinglyLinkedList(7);
+      console.log(list);
+
+      printList(list);
+      printReverseListRec(list);
+      printReverseListSimply(list);
+    </script>
+  </head>
+  <body></body>
+</html>
