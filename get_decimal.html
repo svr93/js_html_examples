@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+      "use strict";
+
+      function getDecimalWithMath(num) {
+        return Math.round((num % 1) * 1e6) / 1e6;
+      }
+
+      function getDecimalSimply(num) {
+        return +(num % 1).toFixed(6);
+      }
+
+      function getDecimalCorrectly(num) {
+        var numLen = num.toString(10).length;
+        var pointIndex = num.toString(10).indexOf('.');
+
+        return +(num % 1).toFixed(numLen - pointIndex - 1);
+      }
+
+      var n = 999999999999.12;
+      
+      alert(
+            n + "\n" +
+            getDecimalWithMath(n) + "\n" +
+            getDecimalSimply(n) + "\n" +
+            getDecimalCorrectly(n)
+      );
+    </script>
+  </head>
+  <body></body>
+</html>
