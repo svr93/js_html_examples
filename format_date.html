@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+      "use strict";
+
+      function formatDate(date) {
+        var result = "";
+
+        var day = date.getDate();
+        result += day >= 10 ? day : "0" + day;
+
+        var month = date.getMonth() + 1;
+        result += month >= 10 ? "." + month : ".0" + month;
+
+        var year = date.getFullYear() % 100;
+        result += year >= 10 ? "." + year : ".0" + year;
+        
+        return result;
+      }
+
+      alert(formatDate(new Date(2011, 0, 30)));
+    </script>
+  </head>
+  <body></body>
+</html>
