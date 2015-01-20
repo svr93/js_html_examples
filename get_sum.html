@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+      "use strict";
+
+      function sum(arg1) {
+
+        return function(arg2) {
+          
+          return arg1 + arg2;
+        };
+      }
+
+      alert(sum(1)(2));
+      alert(sum(5)(-1));
+    </script>
+  </head>
+  <body></body>
+</html>

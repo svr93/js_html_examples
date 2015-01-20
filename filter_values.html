@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+      "use strict";
+
+      function filter(arr, func) {
+        var resultArr = [];
+
+        for (var i = 0; i < arr.length; ++i) {
+          if ( !func(arr[i]) ) continue;
+          resultArr.push(arr[i]);
+        }
+
+        return resultArr;
+      }
+
+      function inBetween(lowLimit, uppLimit) {
+
+        return function(a) {
+          return (a >= lowLimit && a <= uppLimit);
+        };
+      }
+
+      function inArray(arr) {
+
+        return function(a) {
+          return ~arr.indexOf(a);
+        };
+      }
+
+      var arr = [1, 2, 3, 4, 5, 6, 7];
+
+      alert( filter(arr, function(a) { return a % 2 == 0 }) ); // 2, 4, 6
+      alert( filter(arr, inBetween(3, 6)) ); // 3, 4, 5, 6
+      alert( filter(arr, inArray([1, 2, 10])) ); // 1, 2
+    </script>
+  </head>
+  <body></body>
+</html>

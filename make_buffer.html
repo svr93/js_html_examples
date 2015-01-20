@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+      "use strict";
+
+      function makeBuffer() {
+        var tmp = "";
+
+        function buffer(val) {
+          if (val !== undefined) {
+            tmp += val;
+          } else {
+            return tmp;
+          }
+        }
+
+        buffer.clear = function() {
+          tmp = "";
+        }
+
+        return buffer;
+      }
+
+      var buffer = makeBuffer();
+
+      buffer(0);
+      buffer(2);
+      buffer(0);
+
+      alert( "Содержимое буфера: " + buffer() );
+
+      buffer.clear();
+
+      alert( "Содержимое буфера: " + buffer() );
+    </script>
+  </head>
+  <body></body>
+</html>
