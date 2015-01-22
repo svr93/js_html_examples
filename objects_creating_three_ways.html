@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+      "use strict";
+
+      // there are my own examples
+
+      // first - using a function-object for making several objects with simple using
+
+      function makeDateStorage() {
+        var dateArr = [];
+
+        function saver() {
+          dateArr.push(new Date());
+        }
+
+        saver.show = function() {
+          alert(dateArr.join("\n"));
+        };
+
+        saver.reset = function() {
+          dateArr = [];
+        };
+
+        return saver;
+      }
+
+      var saver = makeDateStorage();
+
+      saver();
+      for (var i = 0; i < 4e8; ++i);
+      saver();
+      saver.show();
+      saver.reset();
+      saver.show();
+
+      // second - single object
+
+      var singleTraveler = (function() {
+        var name = "Stas";
+
+        return {
+          sayName: function() {
+            alert(name);
+          },
+          killDeer: function() {
+            alert("Наконец-то поем...");
+          }
+        }
+      }());
+
+      singleTraveler.sayName();
+      singleTraveler.killDeer();
+
+      // third - many people
+
+      function Women(name) {
+        this.name = name;
+
+        this.sayName = function() {
+          alert(this.name);
+        };
+      }
+
+      var firstWomen = new Women("Elvira");
+      var secondWomen = new Women("Sveta");
+      firstWomen.sayName();
+      secondWomen.sayName();
+    </script>
+  </head>
+  <body></body>
+</html>
