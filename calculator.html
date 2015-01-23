@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+      "use strict";
+
+      function Calculator() {
+
+        var operations = {
+          "+": function(a, b) {
+            return a + b;
+          },
+
+          "-": function(a, b) {
+            return a - b;
+          }
+        };
+
+        this.calculate = function(str) {
+          var paramsStorage = str.split(" ");
+
+          if ( !(paramsStorage[1] in operations) ) return "function is not defined!!!";
+
+          var res = operations[ paramsStorage[1] ]( +paramsStorage[0], +paramsStorage[2] );
+          return !isNaN(res) ? res : "error!!!";
+        };
+
+        this.addMethod = function(name, func) {
+          if ( !(func instanceof Function) ) return;
+          operations[name] = func;
+        };
+      }
+
+      var calc = new Calculator;
+
+      alert(calc.calculate("3 + 7")); // 10
+      alert(calc.calculate("3 * 7")); // function is not defined!!!
+
+      calc.addMethod("*", function(a, b) { return a * b; });
+
+      alert(calc.calculate("3 * 7")); // 21
+
+      calc.addMethod("/", function(a, b) { return a / b; });
+      calc.addMethod("**", function(a, b) { return Math.pow(a, b); });
+
+      alert(calc.calculate("6 / 3")); // 2
+      alert(calc.calculate("3 ** 2")); // 9
+    </script>
+  </head>
+  <body></body>
+</html>
