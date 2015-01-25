@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+      "use strict";
+
+      function work(a) {
+        console.log("Я уточка!");
+      }
+
+      function makeLoggingFirstArg(f, log) {
+
+        return function() {
+
+          log.push(arguments[0]);
+          return f.apply(null, arguments);
+        }
+      }
+
+      var log = [];
+
+      work = makeLoggingFirstArg(work, log);
+
+      work(1);
+      work(5);
+
+      for (var i = 0; i < log.length; ++i) {
+        alert("Лог:" + log[i]);
+      }
+    </script>
+  </head>
+  <body></body>
+</html>
