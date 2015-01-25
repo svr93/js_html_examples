@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+      "use strict";
+
+      function parseObj(date) {
+        var tmp = null;
+
+        tmp = date.getFullYear() % 100;
+        var year = tmp >= 10 ? tmp : "0" + tmp;
+
+        tmp = date.getMonth() + 1;
+        var month = tmp >= 10 ? tmp : "0" + tmp;
+
+        tmp = date.getDate();
+        var day = tmp >= 10 ? tmp : "0" + tmp;
+
+        return day + "." + month + "." + year;
+      }
+
+      function outputDate(date) {
+        var argType = {}.toString.call(date);
+
+        if (argType == "[object Date]") {
+          return parseObj(date);
+        }
+
+        if (argType == "[object Array]") {
+          return parseObj( new Date(date[0], date[1], date[2]) );
+        }
+
+        if (argType == "[object Number]") {
+          return parseObj( new Date(date * 1000) );
+        }
+
+        if (argType == "[object String]") {
+          date = date.split('-');
+          return parseObj( new Date(date[0], date[1] - 1, date[2]) );
+        }
+
+        return "error";
+      }
+
+      alert(outputDate( '2011-10-02' ));  // 02.10.11
+      alert(outputDate( 1234567890 ));  // 14.02.09
+      alert(outputDate( [2000,0,1] )); // 01.01.00
+      alert(outputDate( new Date(2000,0,1) )); // 01.01.00
+    </script>
+  </head>
+  <body></body>
+</html>
