@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+      "use strict";
+
+      function writeStr(str) {
+        console.log(str);
+      }
+
+      function throttle(func, ms) {
+        var isPause = false;
+        var needPerformParkedCall = false;
+
+        var self = null;
+        var args = null;
+
+        return function modifiedFunc() {
+          self = this;
+          args = arguments;
+
+          if (isPause) {
+            needPerformParkedCall = true;
+            return;
+          }
+
+          isPause = true;
+          needPerformParkedCall = false;
+
+          func.apply(self, args);
+
+          var timer = setTimeout(function() {
+            isPause = false;
+
+            if (needPerformParkedCall) {
+              modifiedFunc.apply(self, args);
+            }
+
+          }, ms);
+        }
+      }
+
+      writeStr = throttle(writeStr, 5000);
+    </script>
+  </head>
+  <body>
+    <button onclick="writeStr(new Date())">Write</button>
+  </body>
+</html>
