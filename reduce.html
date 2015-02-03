@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+      "use strict";
+
+      function getSums(arr) {
+
+        return arr.map(function(item, i) {
+
+          return arr.slice(0, i + 1).reduce(function(prevElem, currElem, i) {
+
+            return prevElem + currElem;
+          });
+        });
+      }
+
+      alert(getSums([1,2,3,4,5])); // [1, 3, 6, 10, 15]
+      alert(getSums([-2,-1,0,1])); // [-2, -3, -3, -2]
+    </script>
+  </head>
+  <body></body>
+</html>

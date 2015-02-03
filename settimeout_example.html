@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+      "use strict";
+
+      var i = 11;
+
+      function firstFunc() {
+
+        setTimeout(function() {
+          // setTimeout выполнится после всех скриптов документа
+          alert(i);
+        }, 10);
+
+        function f() {
+          // точное время выполнения не играет роли
+          // здесь оно заведомо больше задержки setTimeout
+          for (i = 0; i < 1e8; ++i) {
+            f[i % 10] = i;
+          }
+        }
+        f();
+      }
+
+      firstFunc();
+
+      function secondFunc() {
+        i = 12;
+      }
+
+      secondFunc();
+    </script>
+
+    <script>
+      function thirdFunc() {
+        i = 13;
+      }
+
+      thirdFunc();
+    </script>
+  </head>
+  <body></body>
+</html>
