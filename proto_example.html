@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script>
+      'use strict';
+
+      var TEST_NUM = 1000000;
+
+      var head = {
+        glasses: 1
+      };
+
+      var table = {
+        pen: 3
+      };
+      table.__proto__ = head;
+
+      var bed = {
+        sheet: 1,
+        pillow: 2
+      };
+      bed.__proto__ = table;
+
+      var pockets = {
+        money: 2000
+      };
+      pockets.__proto__ = bed;
+      
+      test('pockets');
+      test('head');
+      test('head');
+      test('pockets');
+
+      function test(objName) {
+        var time = new Date();
+
+        gettingProperty(objName);
+        console.log('Time (' + objName + '): ' + (new Date() - time));
+      }
+
+      function gettingProperty(objName) {
+        for (var i = 0; i < TEST_NUM; ++i) {
+          var tmp = window[objName].glasses;
+        }
+      }
+
+    </script>
+  </head>
+  <body></body>
+</html>
