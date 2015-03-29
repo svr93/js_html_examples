@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script>
+      'use strict';
+
+      function Menu(state) {
+        this.state = state || this.STATE_CLOSED;
+      }
+
+      Menu.prototype.STATE_OPEN = 1;
+      Menu.prototype.STATE_CLOSED = 0;
+
+      Menu.prototype.stateAsString = function() {
+        switch(this.state) {
+          case this.STATE_OPEN:
+            return 'Открыто';
+
+          case this.STATE_CLOSED:
+            return 'Закрыто';
+        }
+      };
+
+      Menu.prototype.open = function() {
+        this.state = this.STATE_OPEN;
+      };
+
+      Menu.prototype.close = function() {
+        this.state = this.STATE_CLOSED;
+      };
+
+      Menu.prototype.showState = function() {
+        alert(this.stateAsString());
+      };
+
+      var menu = new Menu;
+
+      menu.showState(); // закрыто
+
+      menu.open();
+      menu.showState(); // открыто
+
+      menu.close();
+      menu.showState(); // закрыто
+    </script>
+  </head>
+  <body></body>
+</html>
