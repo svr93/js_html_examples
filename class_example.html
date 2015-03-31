@@ -36,15 +36,58 @@
         alert(this.stateAsString());
       };
 
-      var menu = new Menu;
+
+
+      function AnimatingMenu(state) {
+        Menu.apply(this, arguments);
+      }
+
+      AnimatingMenu.prototype = Object.create(Menu.prototype);
+
+      AnimatingMenu.prototype.STATE_ANIMATING = 2;
+
+      AnimatingMenu.prototype.stateAsString = function() {
+        switch(this.state) {
+          case this.STATE_ANIMATING:
+            return 'Анимация';
+
+          default:
+            return Menu.prototype.stateAsString.call(this, arguments);
+        }
+      };
+
+      AnimatingMenu.prototype.open = function() {
+        this.state = this.STATE_ANIMATING;
+
+        var self = this;
+
+        this.timeout = setTimeout(function() {
+          Menu.prototype.open.apply(self, arguments);
+        }, 1000);
+      };
+
+      AnimatingMenu.prototype.close = function() {
+        if (this.timeout) {
+          clearTimeout(this.timeout);
+        }
+
+        Menu.prototype.close.apply(this, arguments);
+      };
+
+      var menu = new AnimatingMenu();
 
       menu.showState(); // закрыто
 
       menu.open();
-      menu.showState(); // открыто
+      menu.showState(); // анимация
 
-      menu.close();
-      menu.showState(); // закрыто
+      setTimeout(function() {
+        menu.showState(); // открыто
+
+        menu.close();
+        menu.showState(); // закрыто (закрытие без анимации)
+      }, 1000);
+      
     </script>
   </head>
   <body></body>
