@@ -33,6 +33,8 @@ Clock.prototype.stop = function() {
 };
 
 Clock.prototype.start = function() {
+  this._render();
+  
   var self = this;
   
   this._timer = setInterval(function() {
