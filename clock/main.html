@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Часики в консоли</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script>
+      'use strict';
+
+      function createClock() {
+        var clock = new Clock({
+          template: 'h:m:s'
+        });
+
+        clock.start();
+      }
+    </script>
+    <script defer src="clock.js" onload="createClock()"></script>
+  </head>
+  <body></body>
+</html>
