@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Часики в консоли</title>
+    <title>Часики в консоли (IE9+)</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -9,14 +9,16 @@
       'use strict';
 
       function createClock() {
-        var clock = new Clock({
-          template: 'h:m:s'
+        var lowResolutionClock = new ExtendedClock({
+          template: 'h:m:s',
+          precision: 5000
         });
 
-        clock.start();
+        lowResolutionClock.start();
       }
     </script>
-    <script defer src="clock.js" onload="createClock()"></script>
+    <script defer src="clock.js"></script>
+    <script defer src="extended-clock.js" onload="createClock()"></script>
   </head>
   <body></body>
 </html>
