@@ -4,6 +4,7 @@ function CoffeeMachine(power) {
   Machine.apply(this, arguments);
 
   var waterAmount = 0;
+  var timerId = null;
 
   this.setWaterAmount = function(amount) {
     waterAmount = amount;
@@ -14,7 +15,20 @@ function CoffeeMachine(power) {
   }
 
   this.run = function() {
-    setTimeout(onReady, 1000);
+
+    if (!this._enabled) {
+      throw new Error('Ошибка: кофеварка выключена!');
+    }
+
+    timerId = setTimeout(onReady, 1000);
+  };
+
+  var parentDisable = this.disable;
+
+  this.disable = function() {
+    clearTimeout(timerId);
+    
+    parentDisable.apply(this, arguments);
   };
 
 }
