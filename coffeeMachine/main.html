@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CoffeeMachine</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script>
+      'use strict';
+
+      function init() {
+
+        var coffeeMachine = new CoffeeMachine(10000);
+
+        try {
+          coffeeMachine.run(); // ошибка, кофеварка выключена!
+        } catch(e) {
+          console.log(e.message);
+        }
+
+        // А вот так — всё в порядке:
+        var coffeeMachine = new CoffeeMachine(10000);
+
+        try {
+          coffeeMachine.enable();
+          coffeeMachine.run(); // ...Кофе готов!
+        } catch(e) {
+          console.log(e.message);
+        }
+
+        var coffeeMachine = new CoffeeMachine(10000);
+
+        try {
+          coffeeMachine.enable();
+          coffeeMachine.run();
+          coffeeMachine.disable(); // остановит работу, ничего не выведет
+        } catch(e) {
+          console.log(e.message);
+        }
+      }
+    </script>
+
+    <script defer src="machine.js"></script>
+    <script defer src="coffee_machine.js" onload="init()"></script>
+  </head>
+  <body></body>
+</html>
