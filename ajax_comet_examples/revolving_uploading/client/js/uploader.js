@@ -40,11 +40,35 @@ function Uploader(file, callbacks) {
   };
 
   function send() {
+    xhrUpload = new XMLHttpRequest(); // file uploading
 
+    xhrUpload.onload = xhrUpload.onerror = function() {
+
+      if (this.status == 200) {
+        callbacks.onSuccess();
+        return;
+      }
+
+      if (++errorCount <= MAX_ERROR_COUNT) {
+        setTimeout(send, DELAY_TIME_COEFF * errorCount);
+        return;
+      }
+
+      callbacks.onFail(this.statusText);
+    };
+
+    xhrUpload.upload.onprogress = function(evt) {
+      callbacks.onProgress(startByte + evt.loaded, startByte + evt.total);
+    };
+
+    xhrUpload.open('POST', '/upload');
+    xhrUpload.setRequestHeader('X-File-Id', fileId);
+    xhrUpload.send(file.slice(startByte));
   }
 
   this.pause = function() {
-
+    xhrStatus && xhrStatus.abort();
+    xhrUpload && xhrUpload.abort();
   };
 
   function getHashCode(fileId) {
