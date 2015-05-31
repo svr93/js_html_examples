@@ -9,12 +9,39 @@ function Uploader(file, callbacks) {
   var xhrUpload = null;
   var xhrStatus = null;
 
+  var DELAY_TIME_COEFF = 1000;
+
   var fileId = file.name + '-' + file.size + '-' + file.lastModifiedDate;
   fileId = getHashCode(fileId);
 
   this.upload = function() {
+    xhrStatus = new XMLHttpRequest(); // receiving startByte info
 
+    xhrStatus.onload = xhrStatus.onerror = function() {
+
+      if (this.status == 200) {
+        startByte = +this.responseText || 0; // 0 in case of "0" or bad resText
+
+        send();
+        return;
+      }
+
+      if (++errorCount <= MAX_ERROR_COUNT) {
+        setTimeout(upload, DELAY_TIME_COEFF * errorCount);
+        return;
+      }
+
+      callbacks.onFail(this.statusText);
+    };
+
+    xhrStatus.open('GET', '/status');
+    xhrStatus.setRequestHeader('X-File-Id', fileId);
+    xhrStatus.send();
   };
+
+  function send() {
+
+  }
 
   this.pause = function() {
 
