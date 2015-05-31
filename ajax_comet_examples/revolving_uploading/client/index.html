@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+      form, button {
+        display: none;
+      }
+    </style>
+
+    <script>
+      'use strict';
+
+      var uploader = null;
+
+      function sendFile() {
+        if (uploader) { // in case of pause
+          uploader.upload();
+          return;
+        }
+
+        var callbacks = {};
+
+        var button = document.getElementById('sendingButton');
+
+        callbacks.onFail = function(status) {
+          button.innerHTML = 'Отправить';
+          console.log(status);
+        };
+
+        callbacks.onSuccess = function() {
+          button.innerHTML = 'Отправить';
+          console.log('Success');
+        };
+
+        callbacks.onProgress = function(loaded, total) {
+          console.log('Loaded: ' + loaded + '/' + total);
+        };
+
+        var form = document.getElementById('fileSendingForm');
+
+        var file = form.elements.file.files[0];
+
+        uploader = new Uploader(file, callbacks);
+      }
+
+      function init() {
+
+        document.addEventListener('DOMContentLoaded', function() {
+          var form = document.getElementById('fileSendingForm');
+
+          var input = form.elements.file;
+
+          var button = document.getElementById('sendingButton');
+
+          input.onchange = function() {
+            uploader = null;
+            button.innerHTML = 'Отправить';
+          };
+
+          button.onclick = function() {
+            if (this.innerHTML = 'Отправить') {
+              sendFile();
+              this.innerHTML = 'Пауза';
+              return;
+            }
+
+            if (this.innerHTML = 'Пауза') {
+              uploader.pause();
+              this.innerHTML = 'Возобновить';
+              return;
+            }
+
+            sendFile();
+            this.innerHTML = 'Пауза';
+          };
+
+          form.style.display = 'block';
+          button.style.display = 'block';
+        });
+      }
+    </script>
+    <script defer src="/js/uploader.js" onload="init()"></script>
+  </head>
+    
+  <body>
+    <form id="fileSendingForm">
+      <input type="file" name="file">
+    </form>
+    <button id="sendingButton">Отправить</button>
+  </body>
+</html>
