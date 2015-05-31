@@ -21,6 +21,17 @@ function Uploader(file, callbacks) {
   };
 
   function getHashCode(fileId) {
+    var SHIFT = 5;
 
+    var chr = null;
+    var hash = 0;
+
+    for (var i = 0; i < fileId.length; ++i) {
+      chr = fileId.charCodeAt(i);
+
+      hash = ((hash << SHIFT) - hash) + chr;
+    }
+
+    return hash | 0; // convert to 32bit integer
   }
 }
