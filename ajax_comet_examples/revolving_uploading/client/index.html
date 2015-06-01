@@ -44,6 +44,7 @@
         var file = form.elements.file.files[0];
 
         uploader = new Uploader(file, callbacks);
+        uploader.upload();
       }
 
       function init() {
@@ -56,6 +57,7 @@
           var button = document.getElementById('sendingButton');
 
           input.onchange = function() {
+
             uploader = null;
             button.innerHTML = 'Отправить';
           };
