@@ -14,7 +14,7 @@ function Uploader(file, callbacks) {
   var fileId = file.name + '-' + file.size + '-' + file.lastModifiedDate;
   fileId = getHashCode(fileId);
 
-  this.upload = function() {
+  this.upload = function f() {
     xhrStatus = new XMLHttpRequest(); // receiving startByte info
 
     xhrStatus.onload = xhrStatus.onerror = function() {
@@ -27,7 +27,9 @@ function Uploader(file, callbacks) {
       }
 
       if (++errorCount <= MAX_ERROR_COUNT) {
-        setTimeout(upload, DELAY_TIME_COEFF * errorCount);
+        setTimeout(function() {
+          f();
+        }, DELAY_TIME_COEFF * errorCount);
         return;
       }
 
@@ -39,7 +41,7 @@ function Uploader(file, callbacks) {
     xhrStatus.send();
   };
 
-  function send() {
+  var send = function f() {
     xhrUpload = new XMLHttpRequest(); // file uploading
 
     xhrUpload.onload = xhrUpload.onerror = function() {
@@ -50,7 +52,9 @@ function Uploader(file, callbacks) {
       }
 
       if (++errorCount <= MAX_ERROR_COUNT) {
-        setTimeout(send, DELAY_TIME_COEFF * errorCount);
+        setTimeout(function() {
+          f();
+        }, DELAY_TIME_COEFF * errorCount);
         return;
       }
 
@@ -63,6 +67,7 @@ function Uploader(file, callbacks) {
 
     xhrUpload.open('POST', '/upload');
     xhrUpload.setRequestHeader('X-File-Id', fileId);
+    xhrUpload.setRequestHeader('Content-Type', file.type);
     xhrUpload.send(file.slice(startByte));
   }
 
