@@ -1,0 +1,6 @@
+ajax_comet_examples/revolving_uploading 'переехал' на
+https://github.com/svr93/file_uploader
+
+В старом варианте не были учтены особенности работы с классом stream.Readable
+в Node.js v0.10 и выше
+(см. https://nodejs.org/api/stream.html#stream_readable_resume)
