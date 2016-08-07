@@ -16,7 +16,7 @@
         var targetProto = target.prototype;
         Object.getOwnPropertyNames(sourceProto).forEach(function(name) {
 
-            if (target.hasOwnProperty(name)) { return; }
+            if (targetProto.hasOwnProperty(name)) { return; }
             if (typeof sourceProto[name] === 'function') {
 
                 targetProto[name] = function() {
