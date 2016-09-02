@@ -14,8 +14,8 @@
      * Private stringifyArrayAsync func implementation.
      * @param {Array} dataArr
      * @param {?(function()|Array)} replacer
-     * @param {{ data: string, blockingTime: number }} result
-     * @return {Promise<{ data: string, blockingTime: number }>}
+     * @param {{ data: string, blockingTime: Array<number> }} result
+     * @return {Promise<{ data: string, blockingTime: Array<number> }>}
      */
     const stringifyArrayAsync = function f(dataArr, replacer, result) {
 
@@ -26,7 +26,7 @@
             const newData = JSON.stringify(currentValue, replacer);
 
             result.data = `${ result.data },${ newData }`;
-            result.blockingTime += (performance.now() - startBlockingTime);
+            result.blockingTime.push(performance.now() - startBlockingTime);
 
             return new Promise((resolve) => {
 
@@ -44,13 +44,13 @@
      * Makes JSON string from array asynchronously.
      * @param {Array} dataArr
      * @param {(function()|Array)=} replacer
-     * @return {Promise<{ data: string, blockingTime: number }>}
+     * @return {Promise<{ data: string, blockingTime: Array<number> }>}
      */
     globalExports.stringifyArrayAsync = function(dataArr, replacer) {
 
         if (!(dataArr instanceof Array)) {
 
-            return Promise.resolve({ data: '[]', blockingTime: 0 });
+            return Promise.resolve({ data: '[]', blockingTime: [] });
         }
         if (!(replacer instanceof Function || replacer instanceof Array)) {
 
@@ -59,7 +59,7 @@
         return stringifyArrayAsync(dataArr, replacer, {
 
             data: '',
-            blockingTime: 0,
+            blockingTime: [],
         });
     };
 })(self);
