@@ -30,10 +30,10 @@
      */
     const stringifyArrayAsync = function f(dataArr, replacer, result) {
 
+        const startBlockingTime = performance.now();
         const currentValueArr = dataArr.splice(0, result.partLength);
         if (currentValueArr.length) {
 
-            const startBlockingTime = performance.now();
             const newData = JSON.stringify(currentValueArr, replacer);
 
             result.data = `${ result.data },${ newData.slice(1, -1) }`;
